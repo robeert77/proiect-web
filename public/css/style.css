@@ -1,0 +1,27 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+.nav-link.active {
+    color: #333 !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid #333;
+    border-radius: 0;
+    padding-bottom: 2px;
+}
+
+.nav-link {
+    color: #333;  
+}
+
+.nav-link:hover {
+    color: #666;
+}
+

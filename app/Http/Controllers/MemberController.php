@@ -7,10 +7,23 @@ use App\Models\Member;
 
 class MemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $members = Member::paginate(10);
-
+        $query = Member::query();
+        
+        if ($request->filled('profession')) {
+            $query->where('profession', 'like', '%' . $request->profession . '%');
+        }
+        
+        if ($request->filled('company')) {
+            $query->where('company', 'like', '%' . $request->company . '%');
+        }
+        
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        
+        $members = $query->paginate(10);
         return view('members.index', compact('members'));
     }
 
@@ -25,7 +38,7 @@ class MemberController extends Controller
             'name'          => 'required',
             'email'         => 'required|email|unique:members',
             'profession'    => 'required',
-            'linkedin_url'  => 'nullable|url',
+            'linkedin_url'  => 'nullable|url|regex:/^(https?:\/\/)?(www\.)?linkedin\.com\/.*$/i',
         ]);
 
         Member::create($request->all());

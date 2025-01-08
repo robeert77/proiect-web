@@ -9,18 +9,22 @@ class MemberController extends Controller
 {
     public function index(Request $request)
     {
-    $query = Member::query();
-    if ($request->filled('profession')) {
-        $query->where('profession', 'like', '%' . $request->profession . '%');
-    }
-    if ($request->filled('company')) {
-        $query->where('company', 'like', '%' . $request->company . '%');
-    }
-    if ($request->filled('status')) {
-        $query->where('status', $request->status);
-    }
-    $members = $query->paginate(10);
-    return view('members.index', compact('members'));
+        $query = Member::query();
+        
+        if ($request->filled('profession')) {
+            $query->where('profession', 'like', '%' . $request->profession . '%');
+        }
+        
+        if ($request->filled('company')) {
+            $query->where('company', 'like', '%' . $request->company . '%');
+        }
+        
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        
+        $members = $query->paginate(10);
+        return view('members.index', compact('members'));
     }
 
     public function create()

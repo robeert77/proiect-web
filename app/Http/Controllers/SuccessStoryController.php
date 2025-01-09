@@ -22,20 +22,25 @@ class SuccessStoryController extends Controller
 
         return view('success-stories.index', compact('success_stories'));
     }
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        //
+        return view('success-stories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'          => 'required',
+            'story'          => 'required',
+            'member_id'      => 'required|exists:members,id',
+        ]);
+
+        SuccessStory::create($request->all());
+
+        return redirect()
+                ->route('success-stories.index', ['member_id' => $request->member_id])
+                ->with('success', 'Story added successfully!');
     }
 
     /**
@@ -43,7 +48,10 @@ class SuccessStoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $story = SuccessStory::with('member')->findOrFail($id);
+        if (request()->ajax()) {
+            return view('success-stories.modal_content', compact('story'));
+        }
     }
 
     /**
@@ -51,7 +59,7 @@ class SuccessStoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -67,6 +75,11 @@ class SuccessStoryController extends Controller
      */
     public function destroy(string $id)
     {
-        dd($id);
+        $story = SuccessStory::findOrFail($id);
+        $story->delete();
+
+        return redirect()
+            ->route('success-stories.index', ['member_id' => $story -> member_id])
+            ->with('success', 'story deleted successfully!');
     }
 }

@@ -18,13 +18,19 @@ class SuccessStoryController extends Controller
             $query->where('member_id', $member_id);
         }
 
-        $success_stories = $query->with('member')->paginate(10);
+        $success_stories = $query->with('member')->paginate(15);
 
         return view('success-stories.index', compact('success_stories'));
     }
     
-    public function create()
+    public function create(Request $request)
     {
+        if (!$request->query('member_id')) {
+            return redirect()
+                ->back()
+                ->with('error', 'You can add a story only from a specific member strories page!');
+        }
+
         return view('success-stories.create');
     }
 

@@ -24,6 +24,7 @@
                             <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" aria-current="page" href="{{ route('home') }}">Home</a>
                             <a class="nav-link {{ Route::currentRouteName() == 'members.index' ? 'active' : '' }}" href="{{ route('members.index') }}">Members</a>
                             <a class="nav-link {{ Route::currentRouteName() == 'members.create' ? 'active' : '' }}" href="{{ route('members.create') }}">Add Member</a>
+                            <a class="nav-link {{ Route::currentRouteName() == 'success-stories.index' ? 'active' : '' }}" href="{{ route('success-stories.index') }}">Stories</a>
                         </div>
                     </div>
                 </nav>
@@ -45,6 +46,8 @@
         </div>
     </footer>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
